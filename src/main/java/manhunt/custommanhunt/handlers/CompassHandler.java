@@ -1,4 +1,4 @@
-package handlers;
+package manhunt.custommanhunt.handlers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

@@ -9,12 +9,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import handlers.CompassHandler;
+import manhunt.custommanhunt.handlers.CompassHandler;
 
 import java.util.ArrayList;
 
 public final class CustomManhunt extends JavaPlugin {
 
+    private boolean gameInProgress = false;
     private ArrayList<Player> hunters = new ArrayList<Player>();
     private Player runner;
 
@@ -83,5 +84,12 @@ public final class CustomManhunt extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         Bukkit.getLogger().info("CustomManhunt plugin stopped");
+    }
+
+    public boolean isGameInProgress() {
+        return gameInProgress;
+    }
+    public void setGameInProgress(boolean bool) {
+        gameInProgress = bool;
     }
 }
