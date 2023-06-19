@@ -124,15 +124,16 @@ public final class CustomManhunt extends JavaPlugin {
 
     public Location getRunnerLocation(Player hunter){
         if(hunter.getLocation().getWorld().equals(runner.getLocation().getWorld())){
-            Bukkit.getLogger().info(hunter.getName() + "is in same world");
+            //Bukkit.getLogger().info(hunter.getName() + "is in same world");
             return runner.getLocation();
-        } else if(hunter.getLocation().getWorld().equals(World.Environment.NORMAL)){
-            Bukkit.getLogger().info(hunter.getName() + "is in same overworld, runner is not");
+        } else if(hunter.getLocation().getWorld().getEnvironment().equals(World.Environment.NORMAL)){
+            //Bukkit.getLogger().info(hunter.getName() + "is in same overworld, runner is not");
             return lastLocationOverworld;
-        } else if(hunter.getLocation().getWorld().equals(World.Environment.NETHER)){
-            Bukkit.getLogger().info(hunter.getName() + "is in same nether, runner is not");
+        } else if(hunter.getLocation().getWorld().getEnvironment().equals(World.Environment.NETHER)){
+            //Bukkit.getLogger().info(hunter.getName() + "is in same nether, runner is not");
             return lastLocationNether;
         } else {
+            //Bukkit.getLogger().info(hunter.getName() + " last else statement");
             return runner.getLocation();
         }
     }
