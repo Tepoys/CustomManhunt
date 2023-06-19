@@ -25,6 +25,10 @@ public class Runner implements CommandExecutor {
             }
 
             if(args[0].equals("set")){
+                if(manhunt.isHunter(pl)){
+                    sender.sendMessage("\"" + pl.getName() + "\" is already a hunter.");
+                    return true;
+                }
                 Player prevRunner = manhunt.getRunner();
                 manhunt.setRunner(pl);
 

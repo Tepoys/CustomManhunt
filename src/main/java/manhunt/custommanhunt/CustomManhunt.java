@@ -5,6 +5,8 @@ import manhunt.custommanhunt.commands.Manhunt;
 import manhunt.custommanhunt.commands.Print;
 import manhunt.custommanhunt.commands.Runner;
 
+import manhunt.custommanhunt.handlers.EntitiyHandler;
+import manhunt.custommanhunt.handlers.PlayerHandler;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -136,6 +138,8 @@ public final class CustomManhunt extends JavaPlugin {
         // Plugin startup logic
         Bukkit.getLogger().info("CustomManhunt plugin started");
         compassHandler = new CompassHandler(this);
+        new PlayerHandler(this);
+        new EntitiyHandler(this);
         getCommand("hunter").setExecutor(new Hunter(this));
         getCommand("runner").setExecutor(new Runner(this));
         getCommand("print").setExecutor(new Print(this));
