@@ -1,0 +1,4 @@
+name: CustomManhunt
+version: '${project.version}'
+main: manhunt.custommanhunt.CustomManhunt
+api-version: '1.19'

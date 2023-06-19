@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CustomManhunt:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CustomManhunt_jar</output-path>
+    <root id="archive" name="CustomManhunt.jar">
+      <element id="module-output" name="CustomManhunt" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>
