@@ -89,6 +89,7 @@ public final class CustomManhunt extends JavaPlugin {
         if(runner==null){
             return 2;
         }
+        gameInProgress = true;
         giveHuntersCompass();
         return 0;
     }
