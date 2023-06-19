@@ -28,6 +28,7 @@ public class Manhunt implements CommandExecutor {
             }else if(args[0].equals("stop") || args[0].equals("end")){
                 if(!manhunt.isGameInProgress()){
                     commandSender.sendMessage("Manhunt not in progress!");
+                    return true;
                 }
                 manhunt.setGameInProgress(false, 0);
                 return true;
