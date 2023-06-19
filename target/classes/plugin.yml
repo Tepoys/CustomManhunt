@@ -1,0 +1,17 @@
+name: CustomManhunt
+version: '1.0-SNAPSHOT'
+main: manhunt.custommanhunt.CustomManhunt
+api-version: '1.19'
+commands:
+  hunter:
+    description: Add/removes a player from the "Hunter" group or clears the "Hunter" group
+    usage: /hunter (add/remove) (username) or /hunter clear
+    aliases: [hunters, ht]
+  runner:
+    description: Add/remove/replace a runner. There can only be ONE runner at a time.
+    usage: /runner set (username) or /runner remove
+    aliases: [runners, rn]
+  print:
+    description: Prints out the current team layout
+    usage: /print
+    aliases: pt
