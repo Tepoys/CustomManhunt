@@ -2,7 +2,6 @@ package manhunt.custommanhunt.handlers;
 
 import manhunt.custommanhunt.CustomManhunt;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,8 +31,7 @@ public class PlayerHandler implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
         if(manhunt.isGameInProgress() && event.getEntity() == manhunt.getRunner()){
-            manhunt.setGameInProgress(false);
-            Bukkit.broadcastMessage(ChatColor.GREEN+"Runner has died, the hunters win!"+ChatColor.WHITE);
+            manhunt.setGameInProgress(false, 2);
         }
     }
 

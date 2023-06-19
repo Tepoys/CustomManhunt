@@ -89,7 +89,14 @@ public final class CustomManhunt extends JavaPlugin {
     public boolean isGameInProgress() {
         return gameInProgress;
     }
-    public void setGameInProgress(boolean bool) {
+    public void setGameInProgress(boolean bool, int reason) {
         gameInProgress = bool;
+        if(reason == 1){
+            Bukkit.broadcastMessage(ChatColor.GREEN+"The ender dragon has been killed! The runner wins!"+ChatColor.WHITE);
+        } else if (reason == 2) {
+            Bukkit.broadcastMessage(ChatColor.GREEN+"Runner has died, the hunters win!"+ChatColor.WHITE);
+        } else if(reason == 0){
+
+        }
     }
 }
