@@ -9,6 +9,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import manhunt.custommanhunt.CustomManhunt;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.CompassMeta;
 
 public class CompassHandler implements Listener{
 	CustomManhunt currentPlugin;
@@ -24,15 +26,16 @@ public class CompassHandler implements Listener{
 			if (event.getItem() != null) {
 				if(event.getMaterial()==Material.COMPASS) {
 					Player player = event.getPlayer();
-					setTargetRunner(player);
+					setTargetRunner(player, event.getItem());
 				}
 			}
 		}
 	}
 
-	public void setTargetRunner(Player pl){
+	public void setTargetRunner(Player pl, ItemStack compass){
 		if(currentPlugin.getRunner()==null) return;
-		pl.setCompassTarget(currentPlugin.getRunnerLocation(pl));
+		CompassMeta meta = (CompassMeta)compass.getItemMeta();
+		meta.setLodestone(currentPlugin.getRunnerLocation(pl));
 		pl.sendMessage("Updated compass to point towards runner");
 	}
 }

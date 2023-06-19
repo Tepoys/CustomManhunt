@@ -105,7 +105,7 @@ public final class CustomManhunt extends JavaPlugin {
         ItemStack compass = new ItemStack(Material.COMPASS, 1);
         compass.addEnchantment(Enchantment.VANISHING_CURSE, 1);
         pl.getInventory().setItem(8, compass);
-        compassHandler.setTargetRunner(pl);
+        compassHandler.setTargetRunner(pl, compass);
     }
 
     public boolean isGameInProgress() {

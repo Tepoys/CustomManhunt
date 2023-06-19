@@ -2,10 +2,12 @@ package manhunt.custommanhunt.handlers;
 
 import manhunt.custommanhunt.CustomManhunt;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
@@ -42,6 +44,20 @@ public class PlayerHandler implements Listener {
 
         if(manhunt.isHunter(event.getPlayer())){
             manhunt.giveCompass(event.getPlayer());
+        }
+    }
+
+    @EventHandler
+    public void onPlayerPortal(PlayerPortalEvent event){
+        if(!manhunt.isGameInProgress() || manhunt.isHunter(event.getPlayer())) return;
+
+        if(event.getPlayer() == manhunt.getRunner()){
+            World world = event.getFrom().getWorld();
+            if(world.equals(World.Environment.NETHER)){
+                manhunt.setLastLocationNether(event.getFrom());
+            } else if(world.equals(World.Environment.NORMAL)) {
+                manhunt.setLastLocationOverworld(event.getFrom());
+            }
         }
     }
 
