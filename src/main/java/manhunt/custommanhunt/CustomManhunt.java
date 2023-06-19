@@ -9,6 +9,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import handlers.CompassHandler;
+
 import java.util.ArrayList;
 
 public final class CustomManhunt extends JavaPlugin {
@@ -70,7 +72,7 @@ public final class CustomManhunt extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         Bukkit.getLogger().info("CustomManhunt plugin started");
-
+        new CompassHandler(this);
         getCommand("hunter").setExecutor(new Hunter(this));
         getCommand("runner").setExecutor(new Runner(this));
         getCommand("print").setExecutor(new Print(this));
