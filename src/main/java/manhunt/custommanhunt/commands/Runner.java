@@ -25,7 +25,14 @@ public class Runner implements CommandExecutor {
             }
 
             if(args[0].equals("set")){
+                Player prevRunner = manhunt.getRunner();
                 manhunt.setRunner(pl);
+
+                if(prevRunner == null){
+                    sender.sendMessage("Runner is now set as \"" + pl.getName() + "\"");
+                }else{
+                    sender.sendMessage("\"" + pl.getName() + "\" replaced \"" + prevRunner.getName() + "\" as new runner.");
+                }
                 return true;
             }else{
                 return false;
@@ -34,6 +41,7 @@ public class Runner implements CommandExecutor {
             //remove
             if(args[0].equals("remove")){
                 manhunt.setRunner(null);
+                sender.sendMessage("Runner removed.");
                 return true;
             }else{
                 return false;

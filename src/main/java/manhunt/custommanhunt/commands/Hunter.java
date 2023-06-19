@@ -27,13 +27,20 @@ public class Hunter implements CommandExecutor {
             }
 
             if(args[0].equals("add")){
-                if(!manhunt.addHunter(pl)){
+                int value;
+                if((value = manhunt.addHunter(pl)) == 1){
                     sender.sendMessage("\"" + args[1] + "\" is already a runner.");
+                }else if(value == 2){
+                    sender.sendMessage("\"" + args[1] + "\" is already a hunter.");
+                }else{
+                    sender.sendMessage("\"" + args[1] + "\" successfully added to hunters.");
                 }
                 return true;
             }else if(args[0].equals("remove")){
                 if(!manhunt.removeHunter(pl)){
                     sender.sendMessage("\"" + args[1] + "\" is not a hunter.");
+                }else{
+                    sender.sendMessage("\"" + args[1] + "\" successfully removed");
                 }
                 return true;
             }else{
@@ -43,6 +50,7 @@ public class Hunter implements CommandExecutor {
             //clear
             if(args[0].equals("clear")){
                 manhunt.clearHunters();
+                sender.sendMessage("successfully cleared hunter group");
                 return true;
             }else{
                 return false;

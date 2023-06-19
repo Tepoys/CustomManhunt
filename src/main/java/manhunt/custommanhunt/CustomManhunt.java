@@ -16,14 +16,20 @@ public final class CustomManhunt extends JavaPlugin {
     private ArrayList<Player> hunters = new ArrayList<Player>();
     private Player runner;
 
-    public boolean addHunter(Player player){
-        if(runner == player){
-            return false;
-        }else {
+    /**
+     *
+     * @param player player to be added
+     * @return int 0 for success, 1 for player adding is already runner, 2 for player adding is already a hunter
+     */
+    public int addHunter(Player player){
+        if(runner == player) return 1;
+        else if(hunters.contains(player)) return 2;
+        else{
             hunters.add(player);
-            return true;
+            return 0;
         }
     }
+
     public boolean removeHunter(Player p){
          return hunters.remove(p);
     }
@@ -32,8 +38,8 @@ public final class CustomManhunt extends JavaPlugin {
         hunters.clear();
     }
 
-    public boolean hasRunner(){
-        return runner != null;
+    public Player getRunner(){
+        return runner;
     }
 
     public void setRunner(Player pl){
