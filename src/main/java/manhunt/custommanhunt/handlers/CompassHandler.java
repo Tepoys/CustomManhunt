@@ -37,6 +37,7 @@ public class CompassHandler implements Listener{
 		CompassMeta meta = (CompassMeta)compass.getItemMeta();
 		meta.setLodestone(currentPlugin.getRunnerLocation(pl));
 		meta.setLodestoneTracked(false);
+		compass.setItemMeta(meta);
 		pl.sendMessage("Updated compass to point towards runner");
 	}
 }

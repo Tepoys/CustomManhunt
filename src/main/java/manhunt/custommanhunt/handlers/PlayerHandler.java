@@ -49,13 +49,15 @@ public class PlayerHandler implements Listener {
 
     @EventHandler
     public void onPlayerPortal(PlayerPortalEvent event){
-        if(!manhunt.isGameInProgress() || manhunt.isHunter(event.getPlayer())) return;
+        if(!manhunt.isGameInProgress()) return;
 
         if(event.getPlayer() == manhunt.getRunner()){
             World world = event.getFrom().getWorld();
             if(world.equals(World.Environment.NETHER)){
                 manhunt.setLastLocationNether(event.getFrom());
+                Bukkit.broadcastMessage("Runner went into overworld!");
             } else if(world.equals(World.Environment.NORMAL)) {
+                Bukkit.broadcastMessage("Runner went into nether!");
                 manhunt.setLastLocationOverworld(event.getFrom());
             }
         }
