@@ -1,12 +1,14 @@
 package manhunt.custommanhunt;
 
 import manhunt.custommanhunt.commands.Hunter;
+import manhunt.custommanhunt.commands.Manhunt;
 import manhunt.custommanhunt.commands.Print;
 import manhunt.custommanhunt.commands.Runner;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import manhunt.custommanhunt.handlers.CompassHandler;
@@ -18,6 +20,9 @@ public final class CustomManhunt extends JavaPlugin {
     private boolean gameInProgress = false;
     private ArrayList<Player> hunters = new ArrayList<Player>();
     private Player runner;
+    private CompassHandler compassHandler;
+    private Location lastLocationOverworld;
+    private Location lastLocationNether;
 
     /**
      *
@@ -26,12 +31,14 @@ public final class CustomManhunt extends JavaPlugin {
      */
     public int addHunter(Player player){
         if(runner == player) return 1;
-        else if(hunters.contains(player)) return 2;
+        else if(isHunter(player)) return 2;
         else{
             hunters.add(player);
             return 0;
         }
     }
+
+    public boolean isHunter(Player player){ return hunters.contains(player); }
 
     public boolean removeHunter(Player p){
          return hunters.remove(p);
@@ -69,21 +76,33 @@ public final class CustomManhunt extends JavaPlugin {
         return hunter + "\n" + run;
     }
 
-    @Override
-    public void onEnable() {
-        // Plugin startup logic
-        Bukkit.getLogger().info("CustomManhunt plugin started");
-        new CompassHandler(this);
-        getCommand("hunter").setExecutor(new Hunter(this));
-        getCommand("runner").setExecutor(new Runner(this));
-        getCommand("print").setExecutor(new Print(this));
-
+    /**
+     *
+     * @return int 1 = no hunters 2 = no runners 0 = success
+     */
+    public int start(){
+        if(hunters.size() < 1){
+            return 1;
+        }
+        if(runner==null){
+            return 2;
+        }
+        giveHuntersCompass();
+        return 0;
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-        Bukkit.getLogger().info("CustomManhunt plugin stopped");
+    public void giveHuntersCompass(){
+        for(Player i : hunters){
+            i.getInventory().clear();
+            giveCompass(i);
+        }
+    }
+
+    public void giveCompass(Player pl){
+        ItemStack compass = new ItemStack(Material.COMPASS, 1);
+        compass.addEnchantment(Enchantment.VANISHING_CURSE, 1);
+        pl.getInventory().setItem(8, compass);
+        compassHandler.setTargetRunner(pl);
     }
 
     public boolean isGameInProgress() {
@@ -96,7 +115,46 @@ public final class CustomManhunt extends JavaPlugin {
         } else if (reason == 2) {
             Bukkit.broadcastMessage(ChatColor.GREEN+"Runner has died, the hunters win!"+ChatColor.WHITE);
         } else if(reason == 0){
-
+            Bukkit.broadcastMessage(ChatColor.RED+"Manhunt canceled by command"+ChatColor.WHITE);
         }
+    }
+
+    public Location getRunnerLocation(Player hunter){
+        if(hunter.getLocation().getWorld().equals(runner.getLocation().getWorld())){
+            return runner.getLocation();
+        } else if(hunter.getLocation().getWorld().equals(World.Environment.NORMAL)){
+            return lastLocationOverworld;
+        } else if(hunter.getLocation().getWorld().equals(World.Environment.NETHER)){
+            return lastLocationNether;
+        } else {
+            return runner.getLocation();
+        }
+    }
+
+    @Override
+    public void onEnable() {
+        // Plugin startup logic
+        Bukkit.getLogger().info("CustomManhunt plugin started");
+        compassHandler = new CompassHandler(this);
+        getCommand("hunter").setExecutor(new Hunter(this));
+        getCommand("runner").setExecutor(new Runner(this));
+        getCommand("print").setExecutor(new Print(this));
+        getCommand("manhunt").setExecutor(new Manhunt(this));
+
+    }
+
+    @Override
+    public void onDisable() {
+        // Plugin shutdown logic
+        Bukkit.getLogger().info("CustomManhunt plugin stopped");
+    }
+
+
+    public void setLastLocationOverworld(Location lastLocationOverworld) {
+        this.lastLocationOverworld = lastLocationOverworld;
+    }
+
+    public void setLastLocationNether(Location lastLocationNether) {
+        this.lastLocationNether = lastLocationNether;
     }
 }

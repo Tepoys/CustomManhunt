@@ -15,7 +15,7 @@ public class Runner implements CommandExecutor {
         manhunt = control;
     }
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(args.length == 2){
             //add or remove player
             Player pl = Bukkit.getPlayer(args[1]);

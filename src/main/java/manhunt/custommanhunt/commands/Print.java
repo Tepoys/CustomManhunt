@@ -13,7 +13,7 @@ public class Print implements CommandExecutor {
         manhunt = control;
     }
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Bukkit.broadcastMessage(manhunt.getCurrentTeams());
         return true;
     }

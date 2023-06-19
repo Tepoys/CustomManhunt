@@ -18,13 +18,21 @@ public class CompassHandler implements Listener{
 	}
 	@EventHandler
 	public void onCompassInteract(PlayerInteractEvent event) {
+		if(!currentPlugin.isGameInProgress()) return;
+
 		if (event.getAction()==Action.RIGHT_CLICK_AIR) {
 			if (event.getItem() != null) {
 				if(event.getMaterial()==Material.COMPASS) {
 					Player player = event.getPlayer();
-					player.setCompassTarget(currentPlugin.getRunner().getLocation());
+					setTargetRunner(player);
 				}
 			}
 		}
+	}
+
+	public void setTargetRunner(Player pl){
+		if(currentPlugin.getRunner()==null) return;
+		pl.setCompassTarget(currentPlugin.getRunnerLocation(pl));
+		pl.sendMessage("Updated compass to point towards runner");
 	}
 }

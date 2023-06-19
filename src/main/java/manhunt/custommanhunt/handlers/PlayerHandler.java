@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class PlayerHandler implements Listener {
 
@@ -32,6 +33,15 @@ public class PlayerHandler implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event){
         if(manhunt.isGameInProgress() && event.getEntity() == manhunt.getRunner()){
             manhunt.setGameInProgress(false, 2);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event){
+        if(!manhunt.isGameInProgress()) return;
+
+        if(manhunt.isHunter(event.getPlayer())){
+            manhunt.giveCompass(event.getPlayer());
         }
     }
 
